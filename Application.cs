@@ -7,17 +7,44 @@
         internal void Start()
         {
             Grid grid = new Grid(3, 3);
-            Player player = new Player();
+            GridDisplay gridDisplay = new GridDisplay();
+            Player playerOne = new Player('O');
+            Player playerTwo = new Player('X');
+            string winner = "None";
 
-            grid.PrintGrid();
-
-            for (int i = 0; i < grid.spaces; i++)
+            int i = 0;
+            while (true)
             {
-                grid.UpdateSquare(player.GetPosition(), player.GetMove());
-                Console.Clear();
-                grid.PrintGrid();
+                if (grid.PlayTurn(playerOne, grid, gridDisplay))
+                {
+                    winner = "Player One";
+                    break;
+                }
+
+                i++;
+
+                if (i >= grid.spaces)
+                {
+                    break;
+                }
+
+                if (grid.PlayTurn(playerTwo, grid, gridDisplay))
+                {
+                    winner = "Player Two";
+                    break;
+                }
+
+                i++;
+
+                if (i >= grid.spaces)
+                {
+                    break;
+                }
             }
 
+            gridDisplay.RenderGrid(grid);
+
+            Console.WriteLine("Winner: {0}", winner);
             Console.Write("Press any key to exit > ");
             Console.ReadKey();
         }

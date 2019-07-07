@@ -4,16 +4,24 @@
 
     class Player
     {
-        internal string GetMove()
+        private char usedCharacter;
+
+        internal Player(char character)
         {
-            Console.Write("Please enter a move > ");
-            return Console.ReadLine();
+            usedCharacter = character;
         }
 
-        internal int GetPosition()
+        internal int GetPosition(char axis)
         {
-            Console.Write("Please enter a grid position > ");
-            return int.Parse(Console.ReadLine());
+            Console.Write("Please enter the {0} co-ordinate of your position > ", axis);
+            string posInput = Console.ReadLine();
+
+            return int.Parse(posInput);
+        }
+
+        internal char GetMove()
+        {
+            return usedCharacter;
         }
     }
 }
